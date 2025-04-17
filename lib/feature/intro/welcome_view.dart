@@ -4,7 +4,7 @@ import 'package:se7eti/core/enum/user_type_enum.dart';
 import 'package:se7eti/core/functions/navigation.dart';
 import 'package:se7eti/core/utils/colors.dart';
 import 'package:se7eti/core/utils/text_style.dart';
-import 'package:se7eti/feature/intro/auth/presentation/pages/login_view.dart';
+import 'package:se7eti/feature/auth/presentation/pages/login_view.dart';
 
 class WelcomeView extends StatelessWidget {
   const WelcomeView({super.key});

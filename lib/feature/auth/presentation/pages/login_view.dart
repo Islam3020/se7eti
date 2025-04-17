@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:se7eti/core/enum/user_type_enum.dart';
 import 'package:se7eti/core/functions/email_validate.dart';
+import 'package:se7eti/core/functions/navigation.dart';
 import 'package:se7eti/core/utils/colors.dart';
 import 'package:se7eti/core/utils/text_style.dart';
 import 'package:se7eti/core/widgets/custom_button.dart';
+import 'package:se7eti/feature/auth/presentation/pages/Register_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key, required this.userType});
@@ -125,7 +127,7 @@ class _LoginViewState extends State<LoginView> {
                             ),
                             TextButton(
                                 onPressed: () {
-                                 
+                                 pushReplacement(context, RegisterView(userType: widget.userType));
                                 },
                                 child: Text(
                                   'سجل الان',
