@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:se7eti/core/functions/navigation.dart';
 import 'package:se7eti/core/utils/colors.dart';
 import 'package:se7eti/core/utils/text_style.dart';
-import 'package:se7eti/feature/auth/data/models/doctor_model.dart';
-import 'package:se7eti/feature/patient/search/page/doctor_profile_view.dart';
+import 'package:se7eti/feature/intro/auth/data/models/doctor_model.dart';
+
 
 class DoctorCard extends StatelessWidget {
   const DoctorCard({
