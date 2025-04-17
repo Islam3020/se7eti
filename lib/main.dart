@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:se7eti/core/utils/themes.dart';
 import 'package:se7eti/feature/intro/splash_view.dart';
 
 void main() {
@@ -9,9 +11,20 @@ class Se7eti extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
+
       debugShowCheckedModeBanner: false,
-      home: SplashView(),
+       theme: AppThemes.lightTheme,
+       locale:const  Locale('ar'),
+        supportedLocales:const  [
+          Locale('ar'),
+        ],
+        localizationsDelegates:const  [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+      home:const SplashView(),
     );
   }
 }

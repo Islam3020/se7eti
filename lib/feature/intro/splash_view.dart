@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:se7eti/core/functions/navigation.dart';
+import 'package:se7eti/feature/intro/onboarding/onboarding_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -8,6 +10,15 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      push(context,const OnboardingView());
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
