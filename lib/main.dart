@@ -1,9 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:se7eti/core/utils/themes.dart';
 import 'package:se7eti/feature/intro/splash_view.dart';
+import 'package:se7eti/firebase_options.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const Se7eti());
 }
 class Se7eti extends StatelessWidget {
