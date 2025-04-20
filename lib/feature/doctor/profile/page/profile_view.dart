@@ -16,10 +16,10 @@ class DoctorProfileView extends StatefulWidget {
   const DoctorProfileView({super.key});
 
   @override
-  _PatientProfileState createState() => _PatientProfileState();
+  _DoctorProfileState createState() => _DoctorProfileState();
 }
 
-class _PatientProfileState extends State<DoctorProfileView> {
+class _DoctorProfileState extends State<DoctorProfileView> {
   String? _imagePath;
   File? file;
   String? profileUrl;
@@ -159,6 +159,7 @@ class _PatientProfileState extends State<DoctorProfileView> {
                                   onTap: () async {
                                      await _pickImage();
                                     await _updateProfileImage();
+                                    setState(() {});
                                   },
                                   child: CircleAvatar(
                                     radius: 15,
