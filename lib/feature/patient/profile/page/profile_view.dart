@@ -10,6 +10,7 @@ import 'package:se7eti/core/utils/colors.dart';
 import 'package:se7eti/core/utils/text_style.dart';
 import 'package:se7eti/core/widgets/custom_button.dart';
 import 'package:se7eti/feature/patient/profile/page/settings_view.dart';
+import 'package:se7eti/feature/patient/profile/page/user_details.dart';
 import 'package:se7eti/feature/patient/profile/widgets/appointments_list.dart';
 import 'package:se7eti/feature/patient/search/widgets/item_tile.dart';
 
@@ -30,13 +31,22 @@ class _PatientProfileState extends State<PatientProfile> {
   Future<void> _getUser() async {
     userId = FirebaseAuth.instance.currentUser?.uid;
   }
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
 
- 
-  
+  Future<void> _init() async {
+    await _getUser();
+    setState(() {});
+  }
+
+
   Future<void> _pickImage() async {
-    _getUser();
+
     final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
@@ -71,22 +81,9 @@ class _PatientProfileState extends State<PatientProfile> {
       return null;
     }
   }
-  Future<void> _updateProfileImage() async {
-    if (_imagePath != null) {
-      String? imageUrl = await uploadImageToCloudinary(file!);
-      if (imageUrl != null) {
-        await FirebaseFirestore.instance
-            .collection('patients')
-            .doc(userId)
-            .update({'image': imageUrl});
-      }
-    }
-  }
-  @override
-  void initState() {
-    super.initState();
-    _getUser();
-  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -158,9 +155,31 @@ class _PatientProfileState extends State<PatientProfile> {
                                 ),
                                 GestureDetector(
                                   onTap: () async {
-                                    await _pickImage();
-                                     await _updateProfileImage();
-                                     setState(() {});
+                                    await _pickImage(); // يفتح الجاليري
+                                    if (file != null) {
+                                      final url = await uploadImageToCloudinary(
+                                          file!); // رفع للصورة
+                                      if (url != null) {
+                                        await FirebaseFirestore.instance
+                                            .collection('patients')
+                                            .doc(userId)
+                                            .update({'image': url}); // تحديث الصورة في Firestore
+
+                                        setState(() {
+                                          profileUrl = url;
+                                        });
+
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('تم تحديث الصورة بنجاح')),
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text('حدث خطأ أثناء رفع الصورة'),
+                                          ),
+                                        );
+                                      }
+                                    }
                                   },
                                   child: CircleAvatar(
                                     radius: 15,
@@ -198,7 +217,7 @@ class _PatientProfileState extends State<PatientProfile> {
                                           height: 40,
                                           onPressed: () {
                                             push(context,const
-                                             UserSettings());
+                                             UserDetails());
                                           },
                                         )
                                       : Text(

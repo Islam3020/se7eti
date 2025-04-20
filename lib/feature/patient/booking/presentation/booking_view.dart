@@ -257,7 +257,7 @@ class _BookingViewState extends State<BookingView> {
                         );
                       }).toList(),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                   ],

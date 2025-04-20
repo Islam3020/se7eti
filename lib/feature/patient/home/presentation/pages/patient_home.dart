@@ -124,10 +124,10 @@ class _HomePageState extends State<PatientHomeView> {
                   onFieldSubmitted: (String value) {
                     setState(
                       () {
-                        // if (_doctorName.text.isNotEmpty) {
-                        //   push(context,
-                        //       SearchHomeView(searchKey: _doctorName.text));
-                        // }
+                        if (_doctorName.text.isNotEmpty) {
+                          push(context,
+                              SearchHomeView(searchKey: _doctorName.text));
+                        }
                       },
                     );
                   },
