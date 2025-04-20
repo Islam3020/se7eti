@@ -3,6 +3,7 @@ import 'package:se7eti/core/functions/navigation.dart';
 import 'package:se7eti/core/utils/colors.dart';
 import 'package:se7eti/core/utils/text_style.dart';
 import 'package:se7eti/feature/auth/data/models/doctor_model.dart';
+import 'package:se7eti/feature/patient/search/pages/doctor_profile.dart';
 
 
 class DoctorCard extends StatelessWidget {
@@ -35,7 +36,7 @@ class DoctorCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (isClickable) {
-           // push(context, DoctorProfile(doctorModel: doctor));
+            push(context, DoctorProfile(doctorModel: doctor));
           }
         },
         child: Row(

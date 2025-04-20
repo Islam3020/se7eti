@@ -14,6 +14,7 @@ import 'package:se7eti/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:se7eti/feature/auth/presentation/cubit/auth_state.dart';
 import 'package:se7eti/feature/auth/presentation/pages/doctor_registeration_view.dart';
 import 'package:se7eti/feature/auth/presentation/pages/login_view.dart';
+import 'package:se7eti/feature/patient/patient_nav_bar.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key, required this.userType});
@@ -55,7 +56,7 @@ class _RegisterViewState extends State<RegisterView> {
               pushAndRemoveUntil(context, const DoctorRegistrationView());
             } else {
              log('patient signup');
-             // pushAndRemoveUntil(context, const PatientNavBarWidget());
+              pushAndRemoveUntil(context, const PatientNavBarWidget());
             }
           }
         },

@@ -10,12 +10,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:se7eti/core/constants/specialization_data.dart';
 import 'package:se7eti/core/functions/dialogs.dart';
+import 'package:se7eti/core/functions/navigation.dart';
 import 'package:se7eti/core/utils/colors.dart';
 import 'package:se7eti/core/utils/text_style.dart';
 import 'package:se7eti/core/widgets/custom_button.dart';
 import 'package:se7eti/feature/auth/data/models/doctor_model.dart';
 import 'package:se7eti/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:se7eti/feature/auth/presentation/cubit/auth_state.dart';
+import 'package:se7eti/feature/doctor/nav_bar_widget.dart';
 
 class DoctorRegistrationView extends StatefulWidget {
   const DoctorRegistrationView({super.key});
@@ -102,7 +104,7 @@ class _DoctorRegistrationViewState extends State<DoctorRegistrationView> {
           if (state is AuthSuccessState) {
             Navigator.pop(context);
           log( 'doctor signup');
-          //  pushAndRemoveUntil(context, const PatientNavBarWidget());
+           pushAndRemoveUntil(context, const DoctorNavBar());
           } else if (state is AuthErrorState) {
             Navigator.pop(context);
             showErrorDialog(context, state.error);

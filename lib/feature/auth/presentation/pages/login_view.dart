@@ -13,6 +13,8 @@ import 'package:se7eti/core/widgets/custom_button.dart';
 import 'package:se7eti/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:se7eti/feature/auth/presentation/cubit/auth_state.dart';
 import 'package:se7eti/feature/auth/presentation/pages/Register_view.dart';
+import 'package:se7eti/feature/doctor/nav_bar_widget.dart';
+import 'package:se7eti/feature/patient/patient_nav_bar.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key, required this.userType});
@@ -52,10 +54,10 @@ class _LoginViewState extends State<LoginView> {
             } else if (state is AuthSuccessState) {
               if (widget.userType == UserType.doctor) {
                 log('doctor');
-                //pushAndRemoveUntil(context, const DoctorNavBar());
+                pushAndRemoveUntil(context, const DoctorNavBar());
               } else {
                log('patient');
-               // pushAndRemoveUntil(context, const PatientNavBarWidget());
+                pushAndRemoveUntil(context, const PatientNavBarWidget());
               }
             }
         },
