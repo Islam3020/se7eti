@@ -229,34 +229,33 @@ class _BookingViewState extends State<BookingView> {
                         ],
                       ),
                     ),
-                    Wrap(
-                      spacing: 8.0,
-                      children: times.map((hour) {
-                        return ChoiceChip(
-                          backgroundColor: AppColors.accentColor,
-                          checkmarkColor: AppColors.white,
-                          selectedColor: AppColors.color1,
-                          label: Text(
-                            '${(hour < 10) ? '0' : ''}${hour.toString()}:00',
-                            style: TextStyle(
-                              color: hour == selectedIndex
-                                  ? AppColors.white
-                                  : AppColors.black,
+                      Wrap(
+                        spacing: 8.0,
+                        children: times.map((hour) {
+                          return ChoiceChip(
+                            backgroundColor: AppColors.accentColor,
+                            // showCheckmark: false,
+                            checkmarkColor: AppColors.white,
+                            // avatar: const Icon(Icons.abc),
+                            selectedColor: AppColors.color1,
+                            label: Text(
+                              '${(hour < 10) ? '0' : ''}${hour.toString()}:00',
+                              style: TextStyle(
+                                color: hour == selectedIndex
+                                    ? AppColors.white
+                                    : AppColors.black,
+                              ),
                             ),
-                          ),
-                          selected: hour == selectedIndex,
-                          onSelected: (selected) {
-                            setState(() {
-                              selectedIndex =
-                                  selected ? hour : -1; // Update index properly
-                              booking_hour = selected
-                                  ? '${(hour < 10) ? '0' : ''}${hour.toString()}:00'
-                                  : null;
-                            });
-                          },
-                        );
-                      }).toList(),
-                    ),
+                            selected: hour == selectedIndex,
+                            onSelected: (selected) {
+                              setState(() {
+                                selectedIndex = hour;
+                                booking_hour =
+                                    '${(hour < 10) ? '0' : ''}${hour.toString()}:00';
+                              });
+                            },
+                          );
+                        }).toList()),
                     const SizedBox(
                       height: 20,
                     ),
