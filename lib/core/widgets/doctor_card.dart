@@ -35,7 +35,7 @@ class DoctorCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (isClickable) {
-            push(context, DoctorProfile(doctorModel: doctor));
+           // push(context, DoctorProfile(doctorModel: doctor));
           }
         },
         child: Row(

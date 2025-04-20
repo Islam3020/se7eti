@@ -1,11 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:se7eti/core/enum/user_type_enum.dart';
+import 'package:se7eti/core/functions/dialogs.dart';
 import 'package:se7eti/core/functions/email_validate.dart';
 import 'package:se7eti/core/functions/navigation.dart';
 import 'package:se7eti/core/utils/colors.dart';
 import 'package:se7eti/core/utils/text_style.dart';
 import 'package:se7eti/core/widgets/custom_button.dart';
+import 'package:se7eti/feature/auth/presentation/cubit/auth_cubit.dart';
+import 'package:se7eti/feature/auth/presentation/cubit/auth_state.dart';
 import 'package:se7eti/feature/auth/presentation/pages/Register_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -30,13 +36,31 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.white,
-          leading: const BackButton(
-            color: AppColors.color1,
-          ),
+      appBar: AppBar(
+        backgroundColor: AppColors.white,
+        leading: const BackButton(
+          color: AppColors.color1,
         ),
-        body: Center(
+      ),
+      body: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthErrorState) {
+              Navigator.pop(context);
+              showErrorDialog(context, state.error);
+            } else if (state is AuthLoadingState) {
+              showLoadingDialog(context);
+            } else if (state is AuthSuccessState) {
+              if (widget.userType == UserType.doctor) {
+                log('doctor');
+                //pushAndRemoveUntil(context, const DoctorNavBar());
+              } else {
+               log('patient');
+               // pushAndRemoveUntil(context, const PatientNavBarWidget());
+              }
+            }
+        },
+        builder: (context, state) {
+          return Center(
             child: SingleChildScrollView(
               child: Form(
                 key: _formKey,
@@ -112,7 +136,12 @@ class _LoginViewState extends State<LoginView> {
                       const Gap(20),
                       CustomButton(
                         onPressed: () async {
-                         
+                           if (_formKey.currentState!.validate()) {
+                            context.read<AuthCubit>().login(
+                                  _emailController.text,
+                                  _passwordController.text,
+                                );
+                          }
                         },
                         text: "تسجيل الدخول",
                       ),
@@ -127,7 +156,8 @@ class _LoginViewState extends State<LoginView> {
                             ),
                             TextButton(
                                 onPressed: () {
-                                 pushReplacement(context, RegisterView(userType: widget.userType));
+                                  pushReplacement(context,
+                                      RegisterView(userType: widget.userType));
                                 },
                                 child: Text(
                                   'سجل الان',
@@ -141,8 +171,10 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
             ),
-          ),
-        );
+          );
+        },
+      ),
+    );
   }
 
   @override
