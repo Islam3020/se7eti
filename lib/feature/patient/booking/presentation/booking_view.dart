@@ -271,6 +271,7 @@ class _BookingViewState extends State<BookingView> {
         child: CustomButton(
           text: 'تأكيد الحجز',
           onPressed: () {
+            
             if (_formKey.currentState!.validate() && selectedIndex != -1) {
               _createAppointment();
               showAlertDialog(

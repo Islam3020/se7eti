@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppLocalStorage {
-  static const String token = "token";
+  static const String userType = "userType";
   static const String isOnboardingShown = "isOnboardingShown";
   static const String userToken = "userToken";
 
@@ -28,4 +28,10 @@ class AppLocalStorage {
   static dynamic getData({required String key}) {
     return _sharedPreferences.get(key);
   }
+
+  static removeData({required String key}) async {
+    await _sharedPreferences.remove(key);
+  }
 }
+
+

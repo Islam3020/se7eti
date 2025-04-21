@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:se7eti/core/enum/user_type_enum.dart';
 import 'package:se7eti/core/functions/navigation.dart';
+import 'package:se7eti/core/services/local_storage.dart';
 import 'package:se7eti/core/utils/colors.dart';
 import 'package:se7eti/core/utils/text_style.dart';
 import 'package:se7eti/feature/auth/presentation/pages/login_view.dart';
@@ -70,6 +71,7 @@ class WelcomeView extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
+                          AppLocalStorage.cacheData(key: AppLocalStorage.userType, value: UserType.doctor.toString());
                           push(context,const LoginView(userType: UserType.doctor));
 
                         },
@@ -90,6 +92,7 @@ class WelcomeView extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
+                          AppLocalStorage.cacheData(key: AppLocalStorage.userType, value: UserType.patient.toString());
                          push(context,const LoginView(userType: UserType.patient));
                         },
                         child: Container(

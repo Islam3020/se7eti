@@ -1,22 +1,20 @@
-List<int> getAvailableAppointments(DateTime selectedDate, String start, String end) {
-  int startHour = int.parse(start);
-  int endHour = int.parse(end);
+List<int> getAvailableAppointments(
+    DateTime selectedDate, String start, String end) {
+  int startHour = int.parse(start.split(':')[0]);
+  int endHour = int.parse(end.split(':')[0]);
 
   List<int> availableHours = [];
-
-  DateTime now = DateTime.now();
-  bool isToday = selectedDate.day == now.day &&
-      selectedDate.month == now.month &&
-      selectedDate.year == now.year;
-      
-
   for (int i = startHour; i < endHour; i++) {
-    if (isToday) {
-      if (i > now.hour) {
+    DateTime configuredDate =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    int diffInDays = selectedDate.difference(configuredDate).inDays;
+    if (diffInDays != 0) {
+      availableHours.add(i);
+    } else {
+      // we are today
+      if (i > DateTime.now().hour) {
         availableHours.add(i);
       }
-    } else {
-      availableHours.add(i);
     }
   }
 

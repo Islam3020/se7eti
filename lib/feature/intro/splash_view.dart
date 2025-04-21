@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:se7eti/core/enum/user_type_enum.dart';
 import 'package:se7eti/core/functions/navigation.dart';
 import 'package:se7eti/core/services/local_storage.dart';
+import 'package:se7eti/feature/doctor/nav_bar_widget.dart';
 import 'package:se7eti/feature/intro/onboarding/onboarding_view.dart';
 import 'package:se7eti/feature/intro/welcome_view.dart';
 import 'package:se7eti/feature/patient/patient_nav_bar.dart';
@@ -13,18 +15,25 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  
+
 
   @override
   void initState() {
     super.initState();
-    String? isLoggedIn =
-        AppLocalStorage.getData(key: AppLocalStorage.userToken);
+   
+    
     Future.delayed(const Duration(seconds: 3), () {
-      if (isLoggedIn != null) {
-        pushReplacement(context, const PatientNavBarWidget());
+      bool isOnboardingShown =
+          AppLocalStorage.getData(key: AppLocalStorage.isOnboardingShown)==true;
+      if (AppLocalStorage.getData(key: AppLocalStorage.userType) != null) {
+        if (AppLocalStorage.getData(key: AppLocalStorage.userType) == UserType.doctor.toString()) {
+          pushReplacement(context, const DoctorNavBar());
+        } else {
+          pushAndRemoveUntil(context, const PatientNavBarWidget());
+        }
       } else {
-        if (AppLocalStorage.getData(key: AppLocalStorage.isOnboardingShown) ??
-            false) {
+        if (isOnboardingShown) {
           pushReplacement(context, const WelcomeView());
         } else {
           pushReplacement(context, const OnboardingView());

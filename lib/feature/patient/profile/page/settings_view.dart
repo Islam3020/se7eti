@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:se7eti/core/functions/navigation.dart';
+import 'package:se7eti/core/services/local_storage.dart';
 import 'package:se7eti/core/utils/colors.dart';
 import 'package:se7eti/core/utils/text_style.dart';
 import 'package:se7eti/core/widgets/settings_tile.dart';
@@ -87,6 +88,7 @@ class _UserSettingsState extends State<UserSettings> {
               ),
               child: TextButton(
                 onPressed: () {
+                  AppLocalStorage.removeData(key: AppLocalStorage.userType);
                   _signOut();
                   pushAndRemoveUntil(context, const WelcomeView());
                 },
