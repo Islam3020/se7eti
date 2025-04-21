@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:se7eti/core/functions/navigation.dart';
+import 'package:se7eti/core/services/local_storage.dart';
 import 'package:se7eti/core/utils/colors.dart';
 import 'package:se7eti/core/utils/text_style.dart';
 import 'package:se7eti/core/widgets/custom_button.dart';
@@ -94,6 +95,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                       width: 100,
                       text: 'هيا بنا',
                       onPressed: () {
+                        AppLocalStorage.cacheData(key: AppLocalStorage.isOnboardingShown, value: true);
                        pushReplacement(context,const WelcomeView());
                       }),
                 }

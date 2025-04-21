@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:se7eti/core/functions/navigation.dart';
+import 'package:se7eti/core/services/local_storage.dart';
 import 'package:se7eti/feature/intro/onboarding/onboarding_view.dart';
+import 'package:se7eti/feature/intro/welcome_view.dart';
+import 'package:se7eti/feature/patient/patient_nav_bar.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -13,10 +16,20 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    String? isLoggedIn =
+        AppLocalStorage.getData(key: AppLocalStorage.userToken);
     Future.delayed(const Duration(seconds: 3), () {
-      push(context,const OnboardingView());
+      if (isLoggedIn != null) {
+        pushReplacement(context, const PatientNavBarWidget());
+      } else {
+        if (AppLocalStorage.getData(key: AppLocalStorage.isOnboardingShown) ??
+            false) {
+          pushReplacement(context, const WelcomeView());
+        } else {
+          pushReplacement(context, const OnboardingView());
+        }
+      }
     });
   }
   @override
